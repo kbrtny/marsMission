@@ -1,7 +1,9 @@
 # marsMission
 simple video playback and game controller for the Mission to Mars game at San Diego Maker Faire 2018.
 
-All you should need to do is clone this on a fresh Rasbian image (to a mars folder)
+The I2C library is from: https://gist.github.com/DenisFromHR/cc863375a6e19dce359d
+
+All you should need to do is clone this on a fresh Rasbian image
 Then run raspi-config and enable i2c
 Then run: chmod +x install.sh
 and: chmod +x marsvideo.py
