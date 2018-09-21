@@ -23,7 +23,7 @@ intro = ("/home/pi/Documents/mars/Intro_video_no_boost.mp4")
 after = ("/home/pi/Documents/mars/aftershow.mp4")
 
 backgroundload = ["feh",
-                  "--hide-pointer",
+                  "-Y",
                   "-x",
                   "-q",
                   "-B", "black",
@@ -75,7 +75,8 @@ def wait_for_video():
         play_state = am_i_playing()
 
 def main_menu():
-    #print("Main Menu")
+    global logic_state
+    # print("Main Menu")
     logic_state = 0
     mylcd.lcd_clear()
     time.sleep(.1)
@@ -86,21 +87,24 @@ def main_menu():
     GPIO.output(boost_active, 0)
 
 def start_game(boost,infinite):
+    # print(str(boost)+":"+str(infinite))
     if infinite:
         # print("Infinite")
         GPIO.output(game_start, 1)
+        if boost:
+            GPIO.output(boost_active, 1)
     else:
         # print("Single")
-        if(boost):
+        if boost:
             # print("Boost")
             player.load(introboost)
         else:
             # print("Normal")
             player.load(intro)
         wait_for_video()
-        
+
         GPIO.output(game_start, 1)
-        if(boost):
+        if boost:
             GPIO.output(boost_active, 1)
         player.load(countdown)
         wait_for_video()
@@ -168,10 +172,11 @@ def main():
         else:
             buttons+=1
     GPIO.cleanup()
+    mylcd.lcd_clear()
     image.kill()
-        
+
 
 if __name__ == "__main__":
     main()
-    
+
 
